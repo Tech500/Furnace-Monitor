@@ -1,11 +1,11 @@
 /*
-     Furnace Run time      Version 21:  09/11/2018 @ 11:00 EDT
+     Furnace Run time      "Furnace_Monitor,ino"  09/13/2018 
 
      Developed for RobotDyn WiFi D1 R2 board with SPIFFS
 
      Sketch --developement started by William M. Lucid, AB9NQ    08/01/2018 @ 19:29 EDT
 
-     ThingSpeak is disabled!!!
+     ThingSpeak is disabled during testing phase!!!
 
 */
 
@@ -227,7 +227,7 @@ void loop()
      getDateTime();
 
      //if ((HOUR == 23) && (MINUTE == 59) && (SECOND == 58))   //New day; elapsed time keeping processes.
-     if ((MINUTE % 5 == 0) && (SECOND == 0))
+     if ((MINUTE % 5 == 0) && (SECOND == 0))   //newDay function occurs every 5 minutes in testing this version.
      {
           newDay();
           delay(1000);
