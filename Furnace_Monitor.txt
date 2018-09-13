@@ -1,0 +1,126 @@
+
+
+Starting...
+testimg.ino
+
+MAC: 5C:CF:7F:E4:58:51
+Connecting to Droid2
+..............................Connection result: 3
+wait for first valid timestamp ............................................................................................................................................................................................... time synced
+Web server running. Waiting for the ESP IP...
+Server IP:  10.0.0.55
+Port:  8000
+
+Thu , 09/13/2018 , 09:27:26 EDT
+
+
+  --- Yesterday ---
+  Total Minutes --one Day:  0.00  Thu , 09/13/2018 , 09:27:26 EDT
+  Total Minutes for :  0.00
+  Total Minutes Year:  0.00
+  count:  1
+
+0.33:  Accumulated Minutes on the Day
+
+
+
+Client connected:  Thu , 09/13/2018 , 09:29:30 EDT
+Client IP:  10.0.0.146
+Processing request
+Action: GET
+Path: /Furnace
+Client closed:  Thu , 09/13/2018 , 09:29:31 EDT
+
+
+  --- Yesterday ---
+  Total Minutes --one Day:  0.00  Thu , 09/13/2018 , 09:30:00 EDT
+  Total Minutes for September:  0.33
+  Total Minutes Year:  0.33
+  count:  2
+
+
+Client connected:  Thu , 09/13/2018 , 09:30:19 EDT
+Client IP:  10.0.0.146
+Processing request
+Action: GET
+Path: /SdBrowse
+Client closed:  Thu , 09/13/2018 , 09:30:20 EDT
+
+0.13:  Accumulated Minutes on the Day
+
+
+
+Client connected:  Thu , 09/13/2018 , 09:30:51 EDT
+Client IP:  10.0.0.146
+Processing request
+Action: GET
+Path: /Furnace
+Client closed:  Thu , 09/13/2018 , 09:30:52 EDT
+
+
+Client connected:  Thu , 09/13/2018 , 09:34:46 EDT
+Client IP:  10.0.0.146
+Processing request
+Action: GET
+Path: /Furnace
+Client closed:  Thu , 09/13/2018 , 09:34:47 EDT
+
+
+Client connected:  Thu , 09/13/2018 , 09:34:59 EDT
+Client IP:  10.0.0.146
+Processing request
+Action: GET
+Path: /Furnace
+Client closed:  Thu , 09/13/2018 , 09:35:00 EDT
+
+
+  --- Yesterday ---
+  Total Minutes --one Day:  0.00  Thu , 09/13/2018 , 09:35:00 EDT
+  Total Minutes for September:  0.46
+  Total Minutes Year:  0.46
+  count:  3
+
+
+  --- Yesterday ---
+  Total Minutes --one Day:  0.00  Thu , 09/13/2018 , 09:40:00 EDT
+  Total Minutes for September:  0.46
+  Total Minutes Year:  0.46
+  count:  4
+
+
+Client connected:  Thu , 09/13/2018 , 09:44:19 EDT
+Client IP:  10.0.0.146
+Processing request
+Action: GET
+Path: /Furnace
+Client closed:  Thu , 09/13/2018 , 09:44:20 EDT
+
+0.08:  Accumulated Minutes on the Day
+
+
+0.21:  Accumulated Minutes on the Day
+
+
+
+Client connected:  Thu , 09/13/2018 , 09:44:55 EDT
+Client IP:  10.0.0.146
+Processing request
+Action: GET
+Path: /Furnace
+Client closed:  Thu , 09/13/2018 , 09:44:56 EDT
+
+
+  --- Yesterday ---
+  Total Minutes --one Day:  0.00  Thu , 09/13/2018 , 09:45:00 EDT
+  Total Minutes for September:  0.21
+  Total Minutes Year:  0.21
+  count:  2
+
+
+Client connected:  Thu , 09/13/2018 , 09:45:14 EDT
+Client IP:  10.0.0.146
+Processing request
+Action: GET
+Path: /Furnace
+Client closed:  Thu , 09/13/2018 , 09:45:15 EDT
+
