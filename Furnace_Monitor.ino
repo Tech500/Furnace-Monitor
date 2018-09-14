@@ -261,8 +261,6 @@ void loop()
 void newDay()
 {
 
-     count++;
-
      totalMonth = totalMonth + totalDay;
      writetotalMonth();
      totalYear = totalMonth;
@@ -301,7 +299,7 @@ void newDay()
 
      SPIFFS.remove("/DAY.TXT");
 
-     if (count == 4)  //count == days then new month
+     if (count == days)  
      {
 
           totalMonth = 0;
@@ -503,7 +501,7 @@ void readYear()  //read --totals for year in milliseconds.
 }
 
 ////////////////////
-String getDateTime()
+String getDateTime()   //schufti of ESP8266.Com forum introduced this method of time keeping for the esp8266.
 {
      struct tm *ti;
 
