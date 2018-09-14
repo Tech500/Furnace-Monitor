@@ -301,14 +301,14 @@ void newDay()
 
      SPIFFS.remove("/DAY.TXT");
 
-     if (count == 4)  //count == days
+     if (count == 4)  //count == days then new month
      {
 
-          writeYear();
-          
           totalMonth = 0;
 
           count = 1;   //initializes for first call to newDay --all values zero
+
+          readYear();
      }
 
      if ((MONTH == 12) && (DATE == days))
