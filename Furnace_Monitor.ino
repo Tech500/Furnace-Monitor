@@ -147,7 +147,7 @@ void setup()
      setenv("TZ", "EST+5EDT,M3.2.0/2,M11.1.0/2", 3);   // this sets TZ to Indianapolis, Indiana
      tzset();
 
-     Serial.print("wait for first valid timestamp ");
+     Serial.print("wait for first valid timestamp "); 
 
      while (time(nullptr) < 100000ul)
      {
