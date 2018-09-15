@@ -7,10 +7,12 @@
 
      ThingSpeak is disabled!!!  Enabe ThingSpeak for graphing
 	
-	Total minutes for month and Total minutes for year only update when newDay is called at 23:59:38.  
-	Calling once at 23:59:58 was done to minimize write cycles.
+     Total minutes for month and Total minutes for year only update when newDay is called at 23:59:38.  
+     Calling once at 23:59:58 was done to minimize write cycles.
 	
-
+     May require addition circuitry for connecting to furnace. such as rectification of AC and and a voltage divider.
+     This is not your typical DIY project; consult a HVAC professional before connecting to furnace!
+	
 */
 
 
