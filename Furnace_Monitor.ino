@@ -304,12 +304,10 @@ void newDay()
      Serial.print("  Total Minutes Year:  ");
      Serial.print((totalYear / 60000), 2);
      Serial.println("");
-     Serial.println("  count:  " + (String)count);
-     Serial.println("");
-
+   
      writeMOYEAR();   //Write totalDay Minutes; daily record.
 
-     //speak();
+     //speak();   //Enable to use ThingSpeak.com graphing service.  Will need ThingSpeak.com account.
 
      totalDay = 0;
 
