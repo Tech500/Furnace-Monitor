@@ -1,13 +1,18 @@
 /*
-     Furnace Run time      "Furnace_Monitor.ino"  09/13/2018 
+     Furnace Monitor      Version 24:  09/15/2018 @ 07:31 EDT  
 
      Developed for RobotDyn WiFi D1 R2 board with SPIFFS
 
-     Sketch --developement started by William M. Lucid, AB9NQ    08/01/2018 @ 19:29 EDT
+     Sketch --developement started 08/01/2018 @ 19:29 EDT
 
-     ThingSpeak is disabled during testing phase!!!
+     ThingSpeak is disabled!!!  Enabe ThingSpeak for graphing
+	
+	Total minutes for month and Total minutes for year only update when newDay is called at 23:59:38.  
+	Calling once at 23:59:58 was done to minimize write cycles.
+	
 
 */
+
 
 #include <ESP8266WiFi.h>   //Part of ESP8266 Board Manager install
 #include <sys/time.h>                   // struct timeval
@@ -22,8 +27,8 @@ extern "C"
 
 
 // Replace with your network details
-const char* ssid = "yourssid";
-const char* password = "yourpassword";
+const char* ssid = "Droid2";
+const char* password = "1048acdc7388";
 
 //Used with NTP Time Protocol
 #define NTP0 "us.pool.ntp.org"
@@ -58,9 +63,9 @@ String fileRead;
 
 char MyBuffer[13];
 
-String publicIP = "xxx.xxx.xxx.xxx";   //in-place of xxx.xxx.xxx.xxx put your Public IP address inside quotes
+String publicIP = "68.39.144.215";   //in-place of xxx.xxx.xxx.xxx put your Public IP address inside quotes
 
-#define LISTEN_PORT           yyyy // in-place of yyyy put your listening port number
+#define LISTEN_PORT           8000 // in-place of yyyy put your listening port number
 // The HTTP protocol uses port 80 by default.
 
 #define MAX_ACTION            10      // Maximum length of the HTTP action that can be parsed.
@@ -83,9 +88,9 @@ int bufindex = 0;
 char action[MAX_ACTION + 1];
 char path[MAX_PATH + 1];
 
-//////////////////////////
+/////////////////////////////////
 // Web Server on port LISTEN_PORT
-/////////////////////////
+/////////////////////////////////
 WiFiServer server(LISTEN_PORT);
 WiFiClient client;
 
@@ -108,13 +113,14 @@ int days;
 */
 
 //edit ThingSpeak.com data here...
-unsigned long myChannelNumber = yourchannelnumber;
-const char * myWriteAPIKey = "yourkey";
+unsigned long myChannelNumber = 562046;
+const char * myWriteAPIKey = "5VG2YIT52O85NQ6A";
 
 float totalDay = 0;   //elapsed time in milliseconds for day.
 float totalMonth = 0;   //elasped time in milliseconds for month.
 float monthTotal = 0;
 float totalYear = 0;   //elapsed time in milliseconds for year
+float day_total;
 
 //int flag = 0;
 
@@ -134,7 +140,7 @@ void setup()
      Serial.println("");
      Serial.println("");
      Serial.println("Starting...");
-     Serial.print("testimg.ino");
+     Serial.print("Furnace_Monitor.ino");
      Serial.print("\n");
 
      pinMode (furnace, INPUT_PULLUP);
@@ -147,7 +153,7 @@ void setup()
      setenv("TZ", "EST+5EDT,M3.2.0/2,M11.1.0/2", 3);   // this sets TZ to Indianapolis, Indiana
      tzset();
 
-     Serial.print("wait for first valid timestamp "); 
+     Serial.print("wait for first valid timestamp ");
 
      while (time(nullptr) < 100000ul)
      {
@@ -178,7 +184,7 @@ void setup()
 
      SPIFFS.begin();
 
-     SPIFFS.format();
+     //SPIFFS.format();
 
      /*
           SPIFFS.remove("/DAY.TXT");
@@ -204,8 +210,6 @@ void loop()
 
           delay(1000 * 10);   //wait 10 seconds before writing
 
-
-
           //Open a "WIFI.TXT" for appended writing.   Client access ip address logged.
           File logFile = SPIFFS.open("/WIFI.TXT", "a");
 
@@ -224,10 +228,8 @@ void loop()
 
      numberDays();
 
-     getDateTime();
-
-     //if ((HOUR == 23) && (MINUTE == 59) && (SECOND == 58))   //New day; elapsed time keeping processes.
-     if ((MINUTE % 5 == 0) && (SECOND == 0))   //newDay function occurs every 5 minutes in testing this version.
+     if ((HOUR == 23) && (MINUTE == 59) && (SECOND == 58))   //New day; elapsed time keeping processes.
+     //if ((MINUTE % 4 == 0) && (SECOND == 0))  //used for testing; comment out above line when testing
      {
           newDay();
           delay(1000);
@@ -240,12 +242,21 @@ void loop()
      if (dayFlag == 1)
      {
 
+          if (SPIFFS.exists("/DAY.TXT"))
+          {
+               readDay();
+          }
+
           totalDay = totalDay + elapsed;
+
+          //Serial.println("read totalDay:  " + (String)totalDay);
+
           writeDay();
 
           Serial.print("");
           Serial.print((totalDay / 60000), 2);
           Serial.println(":  Accumulated Minutes on the Day");
+          //Serial.println("elapsed:  " + (String)elapsed);
           Serial.println("");
           Serial.println("");
 
@@ -261,30 +272,33 @@ void loop()
 void newDay()
 {
 
+     count++;
+
+     if (count == days)  
+     {
+
+          totalMonth = 0;
+
+          SPIFFS.remove("/DAY.TXT");
+
+     }
+
      totalMonth = totalMonth + totalDay;
      writetotalMonth();
-     totalYear = totalMonth;
-     
+     totalYear = totalYear + totalMonth;
+     writeYear();
+
      Serial.println("");
      Serial.println("  --- Yesterday ---");
      Serial.print("");
-
-     readDay();
-
-     Serial.print("  Total Minutes --one Day:  ");
+     Serial.print("  Total Minutes for Day:  ");
      Serial.print(totalDay / 60000, 2);
      Serial.println("  " + (String)dtStamp);
-
-     readtotalMonth();
-
      Serial.print("  Total Minutes for ");
      Serial.print(Month);
      Serial.print(":  ");
      Serial.print((totalMonth / 60000), 2);   //Write Minutes
      Serial.println("");
-
-     readYear();
-
      Serial.print("  Total Minutes Year:  ");
      Serial.print((totalYear / 60000), 2);
      Serial.println("");
@@ -297,18 +311,6 @@ void newDay()
 
      totalDay = 0;
 
-     SPIFFS.remove("/DAY.TXT");
-
-     if (count == days)  
-     {
-
-          totalMonth = 0;
-
-          count = 1;   //initializes for first call to newDay --all values zero
-
-          readYear();
-     }
-
      if ((MONTH == 12) && (DATE == days))
      {
           writeYear();
@@ -316,7 +318,7 @@ void newDay()
 
 }
 
-////////////////////////
+///////////////
 void writeDay()  //write --total for day in milliseconds.
 {
 
@@ -330,7 +332,7 @@ void writeDay()  //write --total for day in milliseconds.
      else
      {
 
-          logFile.print(totalDay / 60000);
+          logFile.print(totalDay);
           logFile.close();
 
      }
@@ -340,25 +342,21 @@ void writeDay()  //write --total for day in milliseconds.
 void readDay()  //read --total for day in milliseconds.
 {
 
-     if (SPIFFS.exists("/DAY.TXT"))
+     File logFile = SPIFFS.open("/DAY.TXT", "r");
+
+     if (!logFile)
      {
+          Serial.println("File totalDay failed to open");
+          Serial.println("");
+     }
+     else
+     {
+          String tFY = logFile.readStringUntil('\n');
+          totalDay = tFY.toInt();
 
-          File logFile = SPIFFS.open("/DAY.TXT", "r");
-
-          if (!logFile)
-          {
-               Serial.println("File totalDay failed to open");
-               Serial.println("");
-          }
-          else
-          {
-               String tFY = logFile.readStringUntil('\n');
-               totalDay = tFY.toInt();
-
-               logFile.close();
+          logFile.close();
 
 
-          }
      }
 }
 
@@ -456,17 +454,9 @@ void writeYear()  //write --totals for month in milliseconds.
      }
      else
      {
+          logFile.println(totalYear);
 
-          String year;   //Create String year = Month + " , " + (String)YEAR + " , " + totalMonth/60000
-          year = MONTH;
-          year += " / ";
-          year = YEAR;
-          year += " , ";
-          year += totalYear;
-
-          logFile.println(year.c_str());
           logFile.close();
-
      }
 }
 
@@ -474,12 +464,15 @@ void writeYear()  //write --totals for month in milliseconds.
 void readYear()  //read --totals for year in milliseconds.
 {
 
-     if (SPIFFS.exists("'/YEAR' + YEAR + '.TXT'"))
+
+
+     String logname;   //Create filename; ("/YEAR" + YEAR)
+     logname = "/YEAR";
+     logname += YEAR;
+     logname += ".TXT";
+
+     if (SPIFFS.exists(logname.c_str()))
      {
-         String logname;   //Create filename; ("/YEAR" + YEAR)
-         logname = "/YEAR";
-         logname += YEAR;
-         logname += ".TXT";
 
           File logFile = SPIFFS.open(logname.c_str(), "r");
 
@@ -495,13 +488,12 @@ void readYear()  //read --totals for year in milliseconds.
 
                logFile.close();
 
-
           }
      }
 }
 
 ////////////////////
-String getDateTime()   //schufti of ESP8266.Com forum introduced this method of time keeping for the esp8266.
+String getDateTime()
 {
      struct tm *ti;
 
@@ -530,8 +522,6 @@ String numberDays()
 
      switch (MONTH)
      {
-
-          //todo:  Allocate arrary to hold data for every day in a MONTH --for each case (MONTH)
 
           case 1:
                //January = 31 days
@@ -1268,7 +1258,6 @@ void end()
      delay(100);   //Delay for changing too quickly to new browser tab.
 
 }
-
 
 
 
