@@ -1,6 +1,6 @@
 //
 //   "Rain Gauge Two.ino" and  
-//   variableInput.h library
+//   variableInput.h //Place in Sketch folder
 //   William M. Lucid   10/06/2019   @ 15:02 EDT    
 // 
 
