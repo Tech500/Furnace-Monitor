@@ -1,7 +1,7 @@
 /*
-     Furnace Monitor      Version 24:  09/15/2018 @ 07:31 EDT  
-
-     Developed for RobotDyn WiFi D1 R2 board with SPIFFS
+     Furnace Monitor     This is a work in progress.  See warning.txt!!! 
+     
+     Developed on RobotDyn WiFi D1 R2 board with SPIFFS
 
      Sketch --developement started 08/01/2018 @ 19:29 EDT
 
@@ -12,6 +12,8 @@
 	
      May require addition circuitry for connecting to furnace. such as rectification of AC and and a voltage divider.
      This is not your typical DIY project; consult a HVAC professional before connecting to furnace!
+     
+     Yhis version 4/17/2020 @ 07:15 EDT; this a testing of concept, not finial version.
 	
 */
 
