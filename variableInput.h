@@ -1,7 +1,7 @@
 //
 //   "Rain Gauge Two.ino" and  
 //   variableInput.h //Place in Sketch folder
-//   William M. Lucid   10/06/2019   @ 15:02 EDT    
+//   William M. Lucid   4/17/2020 @ 07:15 EDT    
 // 
 
 // Replace with your network details  
