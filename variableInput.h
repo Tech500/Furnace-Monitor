@@ -8,8 +8,8 @@
 //const char * host  = "esp32";
 
 // Replace with your network details
-const char * ssid = "Oscar-2";
-const char * password = "sissy4357";
+const char * ssid = "Removed";
+const char * password = "Removed;
 
 
 //publicIP accessiable over Internet with Port Forwarding; know the risks!!!
@@ -26,5 +26,5 @@ const char * password = "sissy4357";
 #define dns {172,16,0,1}
 
 //FTP Credentials
-const char * ftpUser = "techno";
-const char * ftpPassword = "qrzab9nq";
+const char * ftpUser = "Removed";
+const char * ftpPassword = "Removed";
