@@ -8,4 +8,4 @@ updated once when newDay function is called at a few seconds before midnight. Th
 
 Schematic file for Opto Isolator is included.  Have been using this circuit to simulate furnace runtime.  Pushbutton press starts the timing cycle, then pushbutton release ends timing cycle with display on Serial Monitor of "Accumulated Minutes on the Day."
 
-Web interface is for Local Area Network; however with port forwarding cwound be visiable on the Internet.  This is not recommended due to security concerns..
+Web interface is for Local Area Network; however with port forwarding could be visiable on the Internet.  This is not recommended due to security concerns..
